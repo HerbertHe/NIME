@@ -1,5 +1,6 @@
 'use strict';
 
+// debug 读取行输入
 const debug = require('debug')('nime:server');
 const stdio = require('stdio');
 
