@@ -1,20 +1,37 @@
 import type { TextService } from "./textService"
 
-export interface IResponse {
+interface ICommonStates {
+    showCandidates?: boolean
+    candidateCursor?: number
+    compositionCursor?: number
+    compositionString?: string
+    commitString?: string
+}
+
+export interface IResponse extends ICommonStates {
     success: boolean
     seqNum: number
+    return?: boolean
+    candidateList?: string[]
 }
 
 export interface IStateEnv extends IRequest { }
 
-export interface IState {
+export type StateActionType = "SHOW_CANDIDATES" | "UPDATE_CANDIDATE" | "SELECT_CANDIDATE" | "UPDATE_STRING" | "COMMIT_STRING"
+
+export interface IState extends ICommonStates {
     env?: IStateEnv
+    action?: StateActionType
 }
+
+export type RequestMethodType = "init" | "close" | "onActivate" | "onKeyDown" | "onCompositionTerminated" | "filterKeyDown"
 
 export interface IRequest {
     id: string
+    keyCode?: number
+    seqNum?: number
     // TODO 修正 method
-    method?: "init" | "onActivate" | "close"
+    method?: RequestMethodType
     isWindows8Above?: boolean
     isMetroApp?: boolean
     isUiLess?: boolean
