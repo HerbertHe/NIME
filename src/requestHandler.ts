@@ -55,12 +55,14 @@ export const handleRequest = ({ request, connection }: IHandleRequestArgs) => {
         seqNum: request["seqNum"]
     }
 
-    if (request["method"] === "onActivate" && !!state.env) {
+    if (request["method"] === "onActivate" && !!state?.env) {
         state.env.isKeyBoardOpen = request.isKeyBoardOpen
     }
 
-    state = service.textReducer(request, state)
-    response = service.response(request, state)
+    if (!!state && !!service) {
+        state = service.textReducer(request, state)
+        response = service.response(request, state)
+    }
 
     return {
         state,

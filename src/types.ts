@@ -14,7 +14,7 @@ export interface IState {
 export interface IRequest {
     id: string
     // TODO 修正 method
-    method?: "init" | "onActivate"
+    method?: "init" | "onActivate" | "close"
     isWindows8Above?: boolean
     isMetroApp?: boolean
     isUiLess?: boolean
@@ -32,8 +32,8 @@ export interface IService {
 export type ServicesType = ServiceFuncType | IService[]
 
 export interface IInitServiceCallback {
-    service: TextService
-    state: IState
+    service: TextService | null
+    state: IState | null
     response: IResponse
 }
 
